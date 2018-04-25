@@ -1,12 +1,12 @@
 import vlc
 import time
 import sys
+import os
+import random
 
 instance = vlc.Instance()
 player = instance.media_player_new()
-
-working = instance.media_new("electronic.mp3")
-coding = instance.media_new("soundtrack.mp3")
+root = "/home/tom/Music/pomodoro/"
 
 def countdown():
     for i in range(2700,0,-1):
@@ -17,16 +17,10 @@ def countdown():
     sys.stdout.write("\nPomodoro Complete\n")
 
 def focus():
-    print("Are you working or coding?")
-    focus = input()
-    
-    if focus == 'working':
-        player.set_media(working)
-        player.play()
-        countdown()
+    print('Pomodoro will start with random song')
+    songs = [root+song for song in os.listdir(root)]
+    player.set_media(instance.media_new(random.choice(songs)))
+    player.play()
+    countdown()
 
-    elif focus == 'coding':
-        player.set_media(coding)
-        player.play()
-        countdown()
 focus()

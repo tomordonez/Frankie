@@ -2,7 +2,9 @@
 
 A Pomodoro timer with Music in Python.
 
-This pomodoro timer runs from the command line and asks you for a task. Depending on the task, a different song is played and the timer starts counting down.
+The pomodoro timer is evolving. In the previous version it asked for a task. The task was linked to a specific song.
+
+Now it just starts a Pomodoro and selects a random song from a directory that you choose.
 
 ## Setup
 
@@ -24,10 +26,10 @@ Install `VLC`:
 
 The timer is currently set to 45 minutes (2700 seconds). Change this to your own Pomodoro interval.
 
-Add `mp3` songs to your directory. And change the names in the program as needed.
+Add `mp3` songs to your directory.
 
-    working = instance.media_new("electronic.mp3")
-    coding= = instance.media_new("soundtrack.mp3")
+Change the `root` variable with the absolute path of your directory.
+
 
 ## Creating a 45 minute song
 
@@ -37,12 +39,6 @@ I like to do my Pomodoros in 45m intervals. I took an album and joined all the s
 
 This is not the best approach if the songs are not normalized to the same volume.
 
-## Modify the task name
-
-    if focus == 'working'
-    if focus == 'coding'
-
-You can modify the task names to anything you want.
 
 ## Running the Pomodoro timer
 
@@ -57,12 +53,6 @@ I am getting this warning when running the program:
     Warning: Big change (MPEG version, layer, rate). Frankenstein stream?
 
 I imagine is because I didn't normalize the volume of the joined mp3 file I am using. But I haven't been able to fix this. So I named this program `Frankie`.
-
-## Future Version
-
-I am thinking this could be a fun improvement.
-
-Integrating the Pomodoro timer with TaskWarrior. Since I am such a fan of the command line. Use `task ID start` to start the timer and record how much time was spent on that task. Based on the task project, play a different song.
 
 ## Share/Comment
 
