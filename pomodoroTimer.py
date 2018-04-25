@@ -6,10 +6,22 @@ import random
 
 instance = vlc.Instance()
 player = instance.media_player_new()
-root = "/home/tom/Music/pomodoro/"
+
+root = input('Enter the absolute path of the directory that has your music: ')
+
+if (len(root) <= 1):
+    root = "/home/tom/Music/pomodoro/"
+
+while True:
+    try:
+        pomodoro_length = int(input('Enter the length of the Pomodoro in minutes: ')) * 60
+        break
+    except:
+        print('You have to enter an integer. Try again')
+        continue
 
 def countdown():
-    for i in range(2700,0,-1):
+    for i in range(pomodoro_length,0,-1):
         sys.stdout.write("\r")
         sys.stdout.write("Pomodoro: {:2d} seconds remaining.".format(i))
         sys.stdout.flush()

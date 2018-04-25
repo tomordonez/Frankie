@@ -4,7 +4,7 @@ A Pomodoro timer with Music in Python.
 
 The pomodoro timer is evolving. In the previous version it asked for a task. The task was linked to a specific song.
 
-Now it just starts a Pomodoro and selects a random song from a directory that you choose.
+Now it asks for a directory where your songs are. The length of your Pomodoro and it plays a random song from your music directory.
 
 ## Setup
 
@@ -24,11 +24,15 @@ Install `VLC`:
 
 ## Modify the Pomodoro Timer
 
-The timer is currently set to 45 minutes (2700 seconds). Change this to your own Pomodoro interval.
-
 Add `mp3` songs to your directory.
 
 Change the `root` variable with the absolute path of your directory.
+
+It also asks for:
+
+* Directory: Enter absolute path. If you don't enter anything it will default to your `root` variable.
+* Length: Enter time in minutes as an integer. If you enter anything other than `int` it will ask again.
+
 
 
 ## Creating a 45 minute song
@@ -41,8 +45,6 @@ This is not the best approach if the songs are not normalized to the same volume
 
 
 ## Running the Pomodoro timer
-
-It's just a script:
 
     (env) $ python pomodoroTimer.py
 
