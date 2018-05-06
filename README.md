@@ -2,9 +2,7 @@
 
 A Pomodoro timer with Music in Python.
 
-The pomodoro timer is evolving. In the previous version it asked for a task. The task was linked to a specific song.
-
-Now it asks for a directory where your songs are. The length of your Pomodoro and it plays a random song from your music directory.
+It asks for the duration of your Pomodoro in minutes. Then you have the choice of getting a random song or choosing from a list of songs in your directory.
 
 ## Setup
 
@@ -30,10 +28,8 @@ Change the `root` variable with the absolute path of your directory.
 
 It also asks for:
 
-* Directory: Enter absolute path. If you don't enter anything it will default to your `root` variable.
-* Length: Enter time in minutes as an integer. If you enter anything other than `int` it will ask again.
-
-
+* Duration: Enter time in minutes as an integer. If you enter anything other than `int` it will ask again.
+* It will ask if you want a random song. If you enter "y" it will play a random song. If you enter "n" it will list the songs in your directory. And it will ask you to enter the song number.
 
 ## Creating a 45 minute song
 
