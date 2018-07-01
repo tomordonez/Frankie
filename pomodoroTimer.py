@@ -73,4 +73,8 @@ def focus():
             print('Please enter y or n')
             continue
 
-focus()
+def main():
+    focus()
+
+if __name__ == '__main__':
+    main()
