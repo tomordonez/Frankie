@@ -4,9 +4,6 @@ import sys
 import os
 import random
 
-instance = vlc.Instance()
-player = instance.media_player_new()
-
 print('             ')
 print('### Frankie The Pomodoro ###')
 print('             ')
@@ -21,60 +18,69 @@ print('             ')
 # You have to hardcode your Music root here
 root = "/home/tom/Music/pomodoro/"
 
-while True:
-    try:
-        pomodoro_length = int(input('Enter Pomodoro in minutes: ')) * 60
-        break
-    except (KeyboardInterrupt, SystemExit):
-        raise
-    except:
-        print('You have to enter an integer. Try again')
-        continue
-
-def countdown():
-    for i in range(pomodoro_length,0,-1):
-        sys.stdout.write("\r")
-        sys.stdout.write("Pomodoro: {:2d} seconds remaining.".format(i))
-        sys.stdout.flush()
-        time.sleep(1)
-    sys.stdout.write("\nPomodoro Complete\n")
-
-def focus():
-    songs = [root+song for song in os.listdir(root)]
-    song_mode = input('Do you want a random song? (y/n): ').lower()
+def validate_int(input_string):
     while True:
         try:
-            if (song_mode == 'y') or (song_mode == 'yes'):
-                print('Pomodoro will start with random song')
-                player.set_media(instance.media_new(random.choice(songs)))
-                player.play()
-                countdown()
-            elif (song_mode == 'n') or (song_mode == 'no'):
-                counter = 0
-                for song in os.listdir(root):
-                    print('#', counter, song)
-                    counter += 1
-                while True:
-                    try:
-                        song_number = int(input('Enter a song number: '))
-                        player.set_media(instance.media_new(songs[song_number]))
-                        player.play()
-                        countdown()
-                        break
-                    except (KeyboardInterrupt, SystemExit):
-                        raise
-                    except:
-                        print("Please enter a number")
-                        continue
+            validated_int = int(input(input_string))
             break
         except (KeyboardInterrupt, SystemExit):
             raise
         except:
-            print('Please enter y or n')
+            print("Please enter an integer")
             continue
+    return validated_int
+
+def countdown(pomodoro_length):
+    print('\n{}min Pomodoro'.format(pomodoro_length))
+
+    for i in range(pomodoro_length*60, 0, -1):
+        sys.stdout.write("\r")
+        sys.stdout.write("Pomodoro: {:2d}s remaining.".format(i))
+        sys.stdout.flush()
+        time.sleep(1)
+    print("\nPomodoro Complete\n")
+
+def play_song(song_selected, pomodoro_length):
+    instance = vlc.Instance()
+    player = instance.media_player_new()
+    
+    print('Playing song: {}'.format(song_selected))
+    player.set_media(instance.media_new(song_selected))
+    player.play()
+    countdown(pomodoro_length)
+
+def select_song():
+    pomodoro_length = validate_int('Enter Pomodoro in minutes: ')
+
+    songs = [root+song for song in os.listdir(root)]
+    print('\nChoose Song Mode')
+    print('1. Random song')
+    print('2. View song list')
+    
+    song_mode = validate_int('Enter number: ')
+
+    if song_mode == 1:
+        song_selected = random.choice(songs)
+        play_song(song_selected, pomodoro_length)
+
+    elif song_mode == 2:
+        counter = 0
+        for song in os.listdir(root):
+            print('# {} - {}'.format(counter,song))
+            counter += 1
+        
+        song_number = validate_int('Enter a song number: ')
+                
+        song_selected = songs[song_number]
+        play_song(song_selected, pomodoro_length)
+
+    else:
+        sys.exit()
+
+    return(song_mode, song_selected, pomodoro_length)
 
 def main():
-    focus()
+    select_song()
 
 if __name__ == '__main__':
     main()
